@@ -104,7 +104,6 @@
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -117,7 +116,6 @@
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Be.Windows.Forms.HexBox, Version=1.4.2.21498, Culture=neutral, PublicKeyToken=e0e5adf0ebc99863, processorArchitecture=MSIL">
@@ -148,59 +146,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassEdit\ClassEditBinaryViewHandler.cs" />
-    <Compile Include="ClassEdit\ClassEditBodyGridHandler.cs" />
     <Compile Include="ClassEdit\ClassEditBookmarkHandler.cs" />
-    <Compile Include="ClassEdit\ClassEditDecompilerHandler.cs" />
     <Compile Include="ClassEdit\ClassEditHelper.cs" />
-    <Compile Include="ClassEdit\ClassEditILSpyHandler.cs" />
-    <Compile Include="ClassEdit\ClassEditLogHandler.cs" />
     <Compile Include="ClassEdit\ClassEditReflectorHandler.cs" />
-    <Compile Include="ClassEdit\ClassEditResourceHandler.cs" />
     <Compile Include="ClassEdit\ClassEditSearchHandler.cs" />
-    <Compile Include="ClassEdit\ClassEditTextViewHandler.cs" />
     <Compile Include="ClassEdit\ClassEditTreeViewHandler.cs" />
+    <Compile Include="ClassEdit\ClassEditLogHandler.cs" />
+    <Compile Include="ClassEdit\ClassEditBodyGridHandler.cs" />
     <Compile Include="ClassEdit\ClassEditVariableGridHandler.cs" />
-    <Compile Include="Forms\frmClassEdit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmClassEdit.Designer.cs">
-      <DependentUpon>frmClassEdit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmClassEditCustomAttributes.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmClassEditCustomAttributes.Designer.cs">
-      <DependentUpon>frmClassEditCustomAttributes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmClassEditExceptionHandler.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmClassEditExceptionHandler.Designer.cs">
-      <DependentUpon>frmClassEditExceptionHandler.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmClassEditInstruction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmClassEditInstruction.Designer.cs">
-      <DependentUpon>frmClassEditInstruction.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmClassEditMoveInstructions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmClassEditMoveInstructions.Designer.cs">
-      <DependentUpon>frmClassEditMoveInstructions.cs</DependentUpon>
-    </Compile>
+    <Compile Include="ClassEdit\ClassEditResourceHandler.cs" />
+    <Compile Include="ClassEdit\ClassEditILSpyHandler.cs" />
+    <Compile Include="ClassEdit\ClassEditDecompilerHandler.cs" />
+    <Compile Include="ClassEdit\ClassEditTextViewHandler.cs" />
+    <Compile Include="Common\BamlTranslator.cs" />
+    <Compile Include="Common\DataGridViewTextAndImageColumn.cs" />
+    <Compile Include="Common\DirectoryInfoComparer.cs" />
+    <Compile Include="Common\BamlBaseTranslator.cs" />
+    <Compile Include="Common\BamlILSpyTranslator.cs" />
     <Compile Include="Forms\frmClassEditOpenGAC.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmClassEditOpenGAC.Designer.cs">
       <DependentUpon>frmClassEditOpenGAC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmClassEditRename.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmClassEditRename.Designer.cs">
-      <DependentUpon>frmClassEditRename.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmClassEditVariable.cs">
       <SubType>Form</SubType>
@@ -208,16 +175,35 @@
     <Compile Include="Forms\frmClassEditVariable.Designer.cs">
       <DependentUpon>frmClassEditVariable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Common\BamlTranslator.cs" />
-    <Compile Include="Common\DataGridViewTextAndImageColumn.cs" />
-    <Compile Include="Common\DirectoryInfoComparer.cs" />
-    <Compile Include="Common\BamlBaseTranslator.cs" />
-    <Compile Include="Common\BamlILSpyTranslator.cs" />
     <Compile Include="Forms\frmDialogBase.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmDialogBase.Designer.cs">
       <DependentUpon>frmDialogBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmClassEditMoveInstructions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassEditMoveInstructions.Designer.cs">
+      <DependentUpon>frmClassEditMoveInstructions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmClassEditExceptionHandler.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassEditExceptionHandler.Designer.cs">
+      <DependentUpon>frmClassEditExceptionHandler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmClassEditCustomAttributes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassEditCustomAttributes.Designer.cs">
+      <DependentUpon>frmClassEditCustomAttributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmClassEditRename.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassEditRename.Designer.cs">
+      <DependentUpon>frmClassEditRename.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmPluginList.cs">
       <SubType>Form</SubType>
@@ -243,6 +229,12 @@
     <Compile Include="Forms\frmOptions.Designer.cs">
       <DependentUpon>frmOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmClassEditInstruction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassEditInstruction.Designer.cs">
+      <DependentUpon>frmClassEditInstruction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmDeobfMethod.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,6 +259,12 @@
     <Compile Include="Forms\frmRunMethod.Designer.cs">
       <DependentUpon>frmRunMethod.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmClassEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmClassEdit.Designer.cs">
+      <DependentUpon>frmClassEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmDeobf.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -278,6 +276,12 @@
     </Compile>
     <Compile Include="Forms\frmAsm.Designer.cs">
       <DependentUpon>frmAsm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBase.Designer.cs">
+      <DependentUpon>frmBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmDasm.cs">
       <SubType>Form</SubType>
@@ -299,37 +303,12 @@
     <Compile Include="MainForm\MainTreeViewHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\frmClassEdit.resx">
-      <DependentUpon>frmClassEdit.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmClassEditCustomAttributes.resx">
-      <DependentUpon>frmClassEditCustomAttributes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmClassEditExceptionHandler.resx">
-      <DependentUpon>frmClassEditExceptionHandler.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\frmOptions.resx">
+      <DependentUpon>frmOptions.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmClassEditInstruction.resx">
       <DependentUpon>frmClassEditInstruction.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmClassEditMoveInstructions.resx">
-      <DependentUpon>frmClassEditMoveInstructions.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmClassEditOpenGAC.resx">
-      <DependentUpon>frmClassEditOpenGAC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmClassEditRename.resx">
-      <DependentUpon>frmClassEditRename.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmClassEditVariable.resx">
-      <DependentUpon>frmClassEditVariable.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmOptions.resx">
-      <DependentUpon>frmOptions.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDeobfMethod.resx">
@@ -348,12 +327,20 @@
       <DependentUpon>frmRunMethod.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassEdit.resx">
+      <DependentUpon>frmClassEdit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDeobf.resx">
       <DependentUpon>frmDeobf.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmAsm.resx">
       <DependentUpon>frmAsm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBase.resx">
+      <DependentUpon>frmBase.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDasm.resx">
@@ -387,9 +374,30 @@
     <Compile Include="Common\TreeNodeSorter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\frmClassEditOpenGAC.resx">
+      <DependentUpon>frmClassEditOpenGAC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassEditVariable.resx">
+      <DependentUpon>frmClassEditVariable.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmDialogBase.resx">
       <DependentUpon>frmDialogBase.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassEditMoveInstructions.resx">
+      <DependentUpon>frmClassEditMoveInstructions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassEditExceptionHandler.resx">
+      <DependentUpon>frmClassEditExceptionHandler.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassEditCustomAttributes.resx">
+      <DependentUpon>frmClassEditCustomAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmClassEditRename.resx">
+      <DependentUpon>frmClassEditRename.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmPluginList.resx">
       <DependentUpon>frmPluginList.cs</DependentUpon>
@@ -646,11 +654,11 @@
       <Name>Mono.Cecil</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimpleAssemblyExplorer.Core\SimpleAssemblyExplorer.Core.csproj">
-      <Project>{fad7f221-442f-41cb-98f5-65225c38ee26}</Project>
+      <Project>{FAD7F221-442F-41CB-98F5-65225C38EE26}</Project>
       <Name>SimpleAssemblyExplorer.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimpleAssemblyExplorer.Plugin\SimpleAssemblyExplorer.Plugin.csproj">
-      <Project>{e6859af5-5eb4-409e-9dbb-5b96f407b3a4}</Project>
+      <Project>{E6859AF5-5EB4-409E-9DBB-5B96F407B3A4}</Project>
       <Name>SimpleAssemblyExplorer.Plugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimpleUtils\SimpleUtils.csproj">

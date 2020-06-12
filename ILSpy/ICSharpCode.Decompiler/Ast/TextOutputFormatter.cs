@@ -84,9 +84,7 @@ namespace ICSharpCode.Decompiler.Ast
 		{
 			AstNode node = nodeStack.Peek();
 			MemberReference memberRef = node.Annotation<MemberReference>();
-			if ((node.Role == Roles.Type && node.Parent is ObjectCreateExpression) ||
-				(memberRef == null && node.Role == Roles.TargetExpression && (node.Parent is InvocationExpression || node.Parent is ObjectCreateExpression)))
-			{
+			if (memberRef == null && node.Role == Roles.TargetExpression && (node.Parent is InvocationExpression || node.Parent is ObjectCreateExpression)) {
 				memberRef = node.Parent.Annotation<MemberReference>();
 			}
 			return memberRef;
@@ -162,12 +160,7 @@ namespace ICSharpCode.Decompiler.Ast
 		
 		public void WriteKeyword(string keyword)
 		{
-			MemberReference memberRef = GetCurrentMemberReference();
-			var node = nodeStack.Peek();
-			if (memberRef != null && node is ConstructorInitializer)
-				output.WriteReference(keyword, memberRef);
-			else
-				output.Write(keyword);
+			output.Write(keyword);
 		}
 		
 		public void WriteToken(string token)

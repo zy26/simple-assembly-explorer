@@ -475,8 +475,7 @@ namespace ICSharpCode.Decompiler.ILAst
 			newBody.RemoveAt(newBody.Count - 1); // remove AwaitUnsafeOnCompleted call
 			if (callAwaitUnsafeOnCompleted == null || callAwaitUnsafeOnCompleted.Code != ILCode.Call)
 				throw new SymbolicAnalysisFailedException();
-			string methodName = ((MethodReference)callAwaitUnsafeOnCompleted.Operand).Name;
-			if (methodName != "AwaitUnsafeOnCompleted" && methodName != "AwaitOnCompleted")
+			if (((MethodReference)callAwaitUnsafeOnCompleted.Operand).Name != "AwaitUnsafeOnCompleted")
 				throw new SymbolicAnalysisFailedException();
 			if (callAwaitUnsafeOnCompleted.Arguments.Count != 3)
 				throw new SymbolicAnalysisFailedException();

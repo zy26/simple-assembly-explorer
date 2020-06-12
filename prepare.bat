@@ -2,30 +2,41 @@
 @echo off
 echo Cleaning ...
 
-call clean ILSpy\ICSharpCode.Decompiler
-call clean ILSpy\ILSpy.BamlDecompiler
+call deldir ILSpy\ICSharpCode.Decompiler\obj
+call deldir ILSpy\ICSharpCode.Decompiler\bin
 
-call clean ILSpy\NRefactory\ICSharpCode.NRefactory
-call clean ILSpy\NRefactory\ICSharpCode.NRefactory.CSharp
-call clean ILSpy\NRefactory\ICSharpCode.NRefactory.VB
+call deldir ILSpy\NRefactory\ICSharpCode.NRefactory\obj
+call deldir ILSpy\NRefactory\ICSharpCode.NRefactory\bin
 
+call deldir Mono.Cecil\obj
+call deldir Mono.Cecil\bin
 
-call clean Mono.Cecil
-call clean Mono.Cecil\Test
-call clean Mono.Cecil\rocks
+call deldir SAE.Deobf9RayHelper\obj 
+call deldir SAE.Deobf9RayHelper\bin
 
+call deldir SAE.EditFile\obj 
+call deldir SAE.EditFile\bin
 
-call clean SAE.de4dot
-call clean SAE.Deobf9RayHelper
-call clean SAE.DeobfPluginSample
-call clean SAE.EditFile
-call clean SAE.FileDisassembler
-call clean SAE.ILMerge
-call clean SAE.MethodSearcher
-call clean SAE.PluginSample
-call clean SAE.Reflector
-call clean SimpleAssemblyExplorer.Core
-call clean SimpleAssemblyExplorer.plugin
+call deldir SAE.FileDisassembler\obj 
+call deldir SAE.FileDisassembler\bin
+
+call deldir SAE.ILMerge\obj 
+call deldir SAE.ILMerge\bin
+
+call deldir SAE.MethodSearcher\obj 
+call deldir SAE.MethodSearcher\bin
+
+call deldir SAE.PluginSample\obj
+call deldir SAE.PluginSample\bin
+
+call deldir SAE.Reflector\obj 
+call deldir SAE.Reflector\bin
+
+call deldir SimpleAssemblyExplorer.Core\obj
+call deldir SimpleAssemblyExplorer.Core\bin
+
+call deldir SimpleAssemblyExplorer.plugin\obj
+call deldir SimpleAssemblyExplorer.plugin\bin
 
 call deldir SimpleProfiler\Debug 
 call deldir SimpleProfiler\Release
@@ -33,20 +44,24 @@ call deldir SimpleProfiler\Win32
 call deldir SimpleProfiler\x64
 call delfile SimpleProfiler\SimpleProfiler.ncb
 
-call clean SimpleUtils
+call deldir SimpleUtils\obj
+call deldir SimpleUtils\bin
 
-call clean TestProject
+call deldir TestProject\obj
+call deldir TestProject\bin
 call delfile TestProject\Assembly\HWISD_nat.dll
 call delfile TestProject\Temp\*.*
 
-call clean TestSample
+call deldir TestSample\obj
+call deldir TestSample\bin
+
 
 call delfile SimpleAssemblyExplorer.ncb
-call delfile SimpleAssemblyExplorer.sdf
 
 call deldir SimpleAssemblyExplorer\obj
 call deldir SimpleAssemblyExplorer\bin\x86
 call deldir SimpleAssemblyExplorer\bin\x64
+
 call delfile SimpleAssemblyExplorer\bin\debug\*.*
 call delfile SimpleAssemblyExplorer\bin\debug\Plugins\*.*
 

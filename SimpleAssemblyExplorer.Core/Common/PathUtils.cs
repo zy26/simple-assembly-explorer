@@ -262,77 +262,77 @@ namespace SimpleAssemblyExplorer
             return dir;
         }
 
-        public static string GetFrameworkSDKInstalledDir()
+        public static string GetFrameworkSDKInstalledDir(string version)
         {
-            string dir = null;
-            string name = "InstallationFolder";
+            string dir = String.Empty;
             string regKey;
-            RegistryKey key;
-                
-            //3.5, 4.0, 4.5
-            regKey = @"SOFTWARE\Microsoft\Microsoft SDKs\Windows";
-            key = Registry.LocalMachine.OpenSubKey(regKey); 
-            if (key != null) 
+            string name;
+
+            switch (version)
             {
-                var subKeyNames = key.GetSubKeyNames();
-                if (subKeyNames != null && subKeyNames.Length > 0)
-                {
-                    Array.Sort<string>(subKeyNames);
-                    var subKey = key.OpenSubKey(subKeyNames[subKeyNames.Length - 1]);
-                    var o = subKey.GetValue(name);
-                    if (o != null)
-                    {
-                        dir = o.ToString();
-                    }
-                    subKey.Close();
-                }
-                key.Close();
+                case "4.0":
+                    regKey = @"SOFTWARE\Microsoft\Microsoft SDKs\Windows\v7.0A\WinSDK-NetFx40Tools";
+                    name = "InstallationFolder";
+                    break;
+                case "3.5":
+                    regKey = @"SOFTWARE\Microsoft\Microsoft SDKs\Windows\v6.0A";
+                    name = "InstallationFolder";
+                    break;
+                default: //2.0, 3.0
+                    regKey = @"SOFTWARE\Microsoft\.NETFramework";
+                    name = "sdkInstallRootv2.0";
+                    break;
             }
 
-            if (Directory.Exists(dir)) 
-                return dir;
-
-            //2.0, 3.0
-            regKey = @"SOFTWARE\Microsoft\.NETFramework";
-            name = "sdkInstallRootv2.0";
-            key = Registry.LocalMachine.OpenSubKey(regKey);
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(regKey);
             if (key != null)
             {
-                var o = key.GetValue(name);
-                if (o != null)
-                {
-                    dir = o.ToString();
-                }
+                object o = key.GetValue(name);
+                if (o != null) dir = o.ToString();
                 key.Close();
             }
 
-            if (Directory.Exists(dir))
-                return dir;
-
-            return String.Empty;
+            return dir;
         }
 
-        public static string GetFrameworkSDKBinDir()
+        public static string GetFrameworkSDKBinDir(string version)
         {
-            string dir = GetFrameworkSDKInstalledDir();
-            if(String.IsNullOrEmpty(dir))
-                return dir;
-
-            var files = Directory.GetFiles(Path.Combine(dir, "bin"), "peverify.exe", SearchOption.AllDirectories);
-            if(files != null && files.Length>0) {
-                return Path.GetDirectoryName(files[0]);
+            string dir = GetFrameworkSDKInstalledDir(version);
+            if (Directory.Exists(dir))
+            {
+                string peverify = "peverify.exe";
+                string binDir = Path.Combine(dir, "Bin");
+                if (Directory.Exists(binDir))
+                {
+                    peverify = Path.Combine(binDir, peverify);
+                    if(File.Exists(peverify))
+                        return binDir;
+                }
+                peverify = Path.Combine(dir, peverify);
+                if (File.Exists(peverify))
+                    return dir;
             }
-
-            return String.Empty;
+            return string.Empty;
         }
 
         public static void SetupFrameworkSDKPath()
         {
             #region Set Path
             StringBuilder sb = new StringBuilder();
-            string dir;
 
-            dir = PathUtils.GetFrameworkSDKBinDir();
+            string dir = PathUtils.GetFrameworkSDKBinDir("4.0");
+            if (!String.IsNullOrEmpty(dir))
+            {
+                sb.Append(dir);
+                sb.Append(";");
+            }
+            dir = PathUtils.GetFrameworkSDKBinDir("3.5");
+            if (!String.IsNullOrEmpty(dir))
+            {
+                sb.Append(dir);
+                sb.Append(";");
+            }
+            dir = PathUtils.GetFrameworkSDKBinDir("2.0");
             if (!String.IsNullOrEmpty(dir))
             {
                 sb.Append(dir);

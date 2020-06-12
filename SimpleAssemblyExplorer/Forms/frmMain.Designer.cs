@@ -44,13 +44,14 @@ namespace SimpleAssemblyExplorer
             this.mnuGenStrongKey = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHome = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSourceCode = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDiscussion = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEmailAuthor = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCheckForUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuSDK20 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSDK35 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSDK4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSDK45 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -97,6 +98,7 @@ namespace SimpleAssemblyExplorer
             this.lblPath = new System.Windows.Forms.ToolStripLabel();
             this.txtPath = new System.Windows.Forms.ToolStripTextBox();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.mnuSDK45 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -126,25 +128,25 @@ namespace SimpleAssemblyExplorer
             this.toolStripMenuItem7,
             this.mnuExit});
             this.mnuFile.Name = "mnuFile";
-            this.mnuFile.Size = new System.Drawing.Size(35, 20);
+            this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
             // 
             // mnuOptions
             // 
             this.mnuOptions.Name = "mnuOptions";
-            this.mnuOptions.Size = new System.Drawing.Size(111, 22);
+            this.mnuOptions.Size = new System.Drawing.Size(116, 22);
             this.mnuOptions.Text = "Options";
             this.mnuOptions.Click += new System.EventHandler(this.mnuOptions_Click);
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(108, 6);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(113, 6);
             // 
             // mnuExit
             // 
             this.mnuExit.Name = "mnuExit";
-            this.mnuExit.Size = new System.Drawing.Size(111, 22);
+            this.mnuExit.Size = new System.Drawing.Size(116, 22);
             this.mnuExit.Text = "E&xit";
             this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
@@ -158,44 +160,44 @@ namespace SimpleAssemblyExplorer
             this.toolStripMenuItem10,
             this.mnuGenStrongKey});
             this.mnuTools.Name = "mnuTools";
-            this.mnuTools.Size = new System.Drawing.Size(44, 20);
+            this.mnuTools.Size = new System.Drawing.Size(48, 20);
             this.mnuTools.Text = "&Tools";
             // 
             // mnuPluginList
             // 
             this.mnuPluginList.Name = "mnuPluginList";
-            this.mnuPluginList.Size = new System.Drawing.Size(175, 22);
+            this.mnuPluginList.Size = new System.Drawing.Size(181, 22);
             this.mnuPluginList.Text = "Plugin List";
             this.mnuPluginList.Click += new System.EventHandler(this.mnuPluginList_Click);
             // 
             // toolStripMenuItem11
             // 
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(172, 6);
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(178, 6);
             // 
             // mnuProfileApp
             // 
             this.mnuProfileApp.Name = "mnuProfileApp";
-            this.mnuProfileApp.Size = new System.Drawing.Size(175, 22);
+            this.mnuProfileApp.Size = new System.Drawing.Size(181, 22);
             this.mnuProfileApp.Text = "Profile Application";
             this.mnuProfileApp.Click += new System.EventHandler(this.mnuProfileApp_Click);
             // 
             // mnuProfileASPNet
             // 
             this.mnuProfileASPNet.Name = "mnuProfileASPNet";
-            this.mnuProfileASPNet.Size = new System.Drawing.Size(175, 22);
+            this.mnuProfileASPNet.Size = new System.Drawing.Size(181, 22);
             this.mnuProfileASPNet.Text = "Profile ASP.Net";
             this.mnuProfileASPNet.Click += new System.EventHandler(this.mnuProfileASPNet_Click);
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(172, 6);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(178, 6);
             // 
             // mnuGenStrongKey
             // 
             this.mnuGenStrongKey.Name = "mnuGenStrongKey";
-            this.mnuGenStrongKey.Size = new System.Drawing.Size(175, 22);
+            this.mnuGenStrongKey.Size = new System.Drawing.Size(181, 22);
             this.mnuGenStrongKey.Text = "Generate Strong Key";
             this.mnuGenStrongKey.Click += new System.EventHandler(this.mnuGenStrongKey_Click);
             // 
@@ -203,6 +205,8 @@ namespace SimpleAssemblyExplorer
             // 
             this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuHome,
+            this.mnuSourceCode,
+            this.mnuDiscussion,
             this.mnuEmailAuthor,
             this.mnuCheckForUpdate,
             this.toolStripMenuItem6,
@@ -213,72 +217,79 @@ namespace SimpleAssemblyExplorer
             this.toolStripMenuItem5,
             this.mnuAbout});
             this.mnuHelp.Name = "mnuHelp";
-            this.mnuHelp.Size = new System.Drawing.Size(40, 20);
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
             this.mnuHelp.Text = "&Help";
             // 
             // mnuHome
             // 
             this.mnuHome.Name = "mnuHome";
-            this.mnuHome.Size = new System.Drawing.Size(331, 22);
+            this.mnuHome.Size = new System.Drawing.Size(354, 22);
             this.mnuHome.Text = "Home Page";
             this.mnuHome.Click += new System.EventHandler(this.mnuHome_Click);
+            // 
+            // mnuSourceCode
+            // 
+            this.mnuSourceCode.Name = "mnuSourceCode";
+            this.mnuSourceCode.Size = new System.Drawing.Size(354, 22);
+            this.mnuSourceCode.Text = "Source Code";
+            this.mnuSourceCode.Click += new System.EventHandler(this.mnuSourceCode_Click);
+            // 
+            // mnuDiscussion
+            // 
+            this.mnuDiscussion.Name = "mnuDiscussion";
+            this.mnuDiscussion.Size = new System.Drawing.Size(354, 22);
+            this.mnuDiscussion.Text = "Discussion";
+            this.mnuDiscussion.Click += new System.EventHandler(this.mnuDiscussion_Click);
             // 
             // mnuEmailAuthor
             // 
             this.mnuEmailAuthor.Name = "mnuEmailAuthor";
-            this.mnuEmailAuthor.Size = new System.Drawing.Size(331, 22);
+            this.mnuEmailAuthor.Size = new System.Drawing.Size(354, 22);
             this.mnuEmailAuthor.Text = "Email Author";
             this.mnuEmailAuthor.Click += new System.EventHandler(this.mnuEmailAuthor_Click);
             // 
             // mnuCheckForUpdate
             // 
             this.mnuCheckForUpdate.Name = "mnuCheckForUpdate";
-            this.mnuCheckForUpdate.Size = new System.Drawing.Size(331, 22);
+            this.mnuCheckForUpdate.Size = new System.Drawing.Size(354, 22);
             this.mnuCheckForUpdate.Text = "Check for Update";
             this.mnuCheckForUpdate.Click += new System.EventHandler(this.mnuCheckForUpdate_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(328, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(351, 6);
             // 
             // mnuSDK20
             // 
             this.mnuSDK20.Name = "mnuSDK20";
-            this.mnuSDK20.Size = new System.Drawing.Size(331, 22);
+            this.mnuSDK20.Size = new System.Drawing.Size(354, 22);
             this.mnuSDK20.Text = ".Net Framework SDK 2.0";
             this.mnuSDK20.Click += new System.EventHandler(this.mnuSDK20_Click);
             // 
             // mnuSDK35
             // 
             this.mnuSDK35.Name = "mnuSDK35";
-            this.mnuSDK35.Size = new System.Drawing.Size(331, 22);
+            this.mnuSDK35.Size = new System.Drawing.Size(354, 22);
             this.mnuSDK35.Text = "Windows SDK for .Net Framework 3.5";
             this.mnuSDK35.Click += new System.EventHandler(this.mnuSDK35_Click);
             // 
             // mnuSDK4
             // 
             this.mnuSDK4.Name = "mnuSDK4";
-            this.mnuSDK4.Size = new System.Drawing.Size(331, 22);
+            this.mnuSDK4.Size = new System.Drawing.Size(354, 22);
             this.mnuSDK4.Text = "Windows SDK for Windows 7 and .Net Framework 4";
             this.mnuSDK4.Click += new System.EventHandler(this.mnuSDK4_Click);
-            // 
-            // mnuSDK45
-            // 
-            this.mnuSDK45.Name = "mnuSDK45";
-            this.mnuSDK45.Size = new System.Drawing.Size(331, 22);
-            this.mnuSDK45.Text = "Windows SDK for Windows 8 and .Net Framework 4.5";
-            this.mnuSDK45.Click += new System.EventHandler(this.mnuSDK45_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(328, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(351, 6);
             // 
             // mnuAbout
             // 
             this.mnuAbout.Name = "mnuAbout";
-            this.mnuAbout.Size = new System.Drawing.Size(331, 22);
+            this.mnuAbout.Size = new System.Drawing.Size(354, 22);
             this.mnuAbout.Text = "&About";
             this.mnuAbout.Click += new System.EventHandler(this.mnuAbout_Click);
             // 
@@ -288,9 +299,9 @@ namespace SimpleAssemblyExplorer
             this.statusInfo,
             this.statusProgress,
             this.statusVersion});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 408);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 406);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(792, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(792, 24);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -300,7 +311,7 @@ namespace SimpleAssemblyExplorer
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusInfo.Name = "statusInfo";
-            this.statusInfo.Size = new System.Drawing.Size(731, 17);
+            this.statusInfo.Size = new System.Drawing.Size(727, 19);
             this.statusInfo.Spring = true;
             this.statusInfo.Text = "Ready";
             this.statusInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -317,7 +328,7 @@ namespace SimpleAssemblyExplorer
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.statusVersion.Name = "statusVersion";
-            this.statusVersion.Size = new System.Drawing.Size(46, 17);
+            this.statusVersion.Size = new System.Drawing.Size(50, 19);
             this.statusVersion.Text = "Version";
             // 
             // treeView1
@@ -330,7 +341,7 @@ namespace SimpleAssemblyExplorer
             this.treeView1.Location = new System.Drawing.Point(0, 49);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(191, 359);
+            this.treeView1.Size = new System.Drawing.Size(191, 357);
             this.treeView1.TabIndex = 2;
             this.treeView1.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeView1_DrawNode);
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
@@ -352,7 +363,7 @@ namespace SimpleAssemblyExplorer
             // 
             this.splitter1.Location = new System.Drawing.Point(191, 49);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(3, 359);
+            this.splitter1.Size = new System.Drawing.Size(3, 357);
             this.splitter1.TabIndex = 3;
             this.splitter1.TabStop = false;
             // 
@@ -379,7 +390,7 @@ namespace SimpleAssemblyExplorer
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersWidth = 21;
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvData.Size = new System.Drawing.Size(598, 359);
+            this.dgvData.Size = new System.Drawing.Size(598, 357);
             this.dgvData.TabIndex = 4;
             this.dgvData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellDoubleClick);
             this.dgvData.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvData_CellMouseDown);
@@ -414,13 +425,13 @@ namespace SimpleAssemblyExplorer
             this.cmOpenFolder,
             this.cmDeleteFile});
             this.cmAssembly.Name = "cmAssembly";
-            this.cmAssembly.Size = new System.Drawing.Size(140, 286);
+            this.cmAssembly.Size = new System.Drawing.Size(146, 286);
             this.cmAssembly.Opening += new System.ComponentModel.CancelEventHandler(this.cmAssembly_Opening);
             // 
             // cmAsm
             // 
             this.cmAsm.Name = "cmAsm";
-            this.cmAsm.Size = new System.Drawing.Size(139, 22);
+            this.cmAsm.Size = new System.Drawing.Size(145, 22);
             this.cmAsm.Text = "Assembler";
             this.cmAsm.Click += new System.EventHandler(this.cmAsm_Click);
             // 
@@ -428,42 +439,42 @@ namespace SimpleAssemblyExplorer
             // 
             this.cmDasm.Image = global::SimpleAssemblyExplorer.Properties.Resources.ildasm;
             this.cmDasm.Name = "cmDasm";
-            this.cmDasm.Size = new System.Drawing.Size(139, 22);
+            this.cmDasm.Size = new System.Drawing.Size(145, 22);
             this.cmDasm.Text = "Disassembler";
             this.cmDasm.Click += new System.EventHandler(this.cmDasm_Click);
             // 
             // cmDeobf
             // 
             this.cmDeobf.Name = "cmDeobf";
-            this.cmDeobf.Size = new System.Drawing.Size(139, 22);
+            this.cmDeobf.Size = new System.Drawing.Size(145, 22);
             this.cmDeobf.Text = "Deobfuscator";
             this.cmDeobf.Click += new System.EventHandler(this.cmDeobf_Click);
             // 
             // cmStrongName
             // 
             this.cmStrongName.Name = "cmStrongName";
-            this.cmStrongName.Size = new System.Drawing.Size(139, 22);
+            this.cmStrongName.Size = new System.Drawing.Size(145, 22);
             this.cmStrongName.Text = "Strong Name";
             this.cmStrongName.Click += new System.EventHandler(this.cmStrongName_Click);
             // 
             // cmVerify
             // 
             this.cmVerify.Name = "cmVerify";
-            this.cmVerify.Size = new System.Drawing.Size(139, 22);
+            this.cmVerify.Size = new System.Drawing.Size(145, 22);
             this.cmVerify.Text = "PE Verify";
             this.cmVerify.Click += new System.EventHandler(this.cmVerify_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(136, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(142, 6);
             // 
             // cmClassEditor
             // 
             this.cmClassEditor.Image = global::SimpleAssemblyExplorer.Properties.Resources.classbrowser;
             this.cmClassEditor.ImageTransparentColor = System.Drawing.Color.Green;
             this.cmClassEditor.Name = "cmClassEditor";
-            this.cmClassEditor.Size = new System.Drawing.Size(139, 22);
+            this.cmClassEditor.Size = new System.Drawing.Size(145, 22);
             this.cmClassEditor.Text = "Class Editor";
             this.cmClassEditor.Click += new System.EventHandler(this.cmClassEditor_Click);
             // 
@@ -472,40 +483,40 @@ namespace SimpleAssemblyExplorer
             this.cmRunMethod.Image = global::SimpleAssemblyExplorer.Properties.Resources.runmethod;
             this.cmRunMethod.ImageTransparentColor = System.Drawing.Color.Green;
             this.cmRunMethod.Name = "cmRunMethod";
-            this.cmRunMethod.Size = new System.Drawing.Size(139, 22);
+            this.cmRunMethod.Size = new System.Drawing.Size(145, 22);
             this.cmRunMethod.Text = "Run Method";
             this.cmRunMethod.Click += new System.EventHandler(this.cmRunMethod_Click);
             // 
             // cmProfiler
             // 
             this.cmProfiler.Name = "cmProfiler";
-            this.cmProfiler.Size = new System.Drawing.Size(139, 22);
+            this.cmProfiler.Size = new System.Drawing.Size(145, 22);
             this.cmProfiler.Text = "Profiler";
             this.cmProfiler.Click += new System.EventHandler(this.cmProfiler_Click);
             // 
             // cmPluginSepStart
             // 
             this.cmPluginSepStart.Name = "cmPluginSepStart";
-            this.cmPluginSepStart.Size = new System.Drawing.Size(136, 6);
+            this.cmPluginSepStart.Size = new System.Drawing.Size(142, 6);
             // 
             // cmMore
             // 
             this.cmMore.Name = "cmMore";
-            this.cmMore.Size = new System.Drawing.Size(139, 22);
+            this.cmMore.Size = new System.Drawing.Size(145, 22);
             this.cmMore.Text = "More ...";
             this.cmMore.Visible = false;
             // 
             // cmPluginSepEnd
             // 
             this.cmPluginSepEnd.Name = "cmPluginSepEnd";
-            this.cmPluginSepEnd.Size = new System.Drawing.Size(136, 6);
+            this.cmPluginSepEnd.Size = new System.Drawing.Size(142, 6);
             // 
             // cmCopyInfo
             // 
             this.cmCopyInfo.Image = global::SimpleAssemblyExplorer.Properties.Resources.copy;
             this.cmCopyInfo.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.cmCopyInfo.Name = "cmCopyInfo";
-            this.cmCopyInfo.Size = new System.Drawing.Size(139, 22);
+            this.cmCopyInfo.Size = new System.Drawing.Size(145, 22);
             this.cmCopyInfo.Text = "Copy Info";
             this.cmCopyInfo.Click += new System.EventHandler(this.cmCopyInfo_Click);
             // 
@@ -514,7 +525,7 @@ namespace SimpleAssemblyExplorer
             this.cmOpenFolder.Image = global::SimpleAssemblyExplorer.Properties.Resources.openfolder;
             this.cmOpenFolder.ImageTransparentColor = System.Drawing.Color.Green;
             this.cmOpenFolder.Name = "cmOpenFolder";
-            this.cmOpenFolder.Size = new System.Drawing.Size(139, 22);
+            this.cmOpenFolder.Size = new System.Drawing.Size(145, 22);
             this.cmOpenFolder.Text = "Open Folder";
             this.cmOpenFolder.Click += new System.EventHandler(this.cmOpenFolder_Click);
             // 
@@ -523,7 +534,7 @@ namespace SimpleAssemblyExplorer
             this.cmDeleteFile.Image = global::SimpleAssemblyExplorer.Properties.Resources.delete;
             this.cmDeleteFile.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.cmDeleteFile.Name = "cmDeleteFile";
-            this.cmDeleteFile.Size = new System.Drawing.Size(139, 22);
+            this.cmDeleteFile.Size = new System.Drawing.Size(145, 22);
             this.cmDeleteFile.Text = "Delete File";
             this.cmDeleteFile.Click += new System.EventHandler(this.cmDeleteFile_Click);
             // 
@@ -599,12 +610,12 @@ namespace SimpleAssemblyExplorer
             this.toolStripMenuItem9,
             this.cmRefresh});
             this.cmFolder.Name = "cmAssembly";
-            this.cmFolder.Size = new System.Drawing.Size(139, 126);
+            this.cmFolder.Size = new System.Drawing.Size(144, 126);
             // 
             // cmFolderAsm
             // 
             this.cmFolderAsm.Name = "cmFolderAsm";
-            this.cmFolderAsm.Size = new System.Drawing.Size(138, 22);
+            this.cmFolderAsm.Size = new System.Drawing.Size(143, 22);
             this.cmFolderAsm.Text = "Assembler";
             this.cmFolderAsm.Click += new System.EventHandler(this.cmFolderAsm_Click);
             // 
@@ -612,21 +623,21 @@ namespace SimpleAssemblyExplorer
             // 
             this.cmFolderDasm.Image = global::SimpleAssemblyExplorer.Properties.Resources.ildasm;
             this.cmFolderDasm.Name = "cmFolderDasm";
-            this.cmFolderDasm.Size = new System.Drawing.Size(138, 22);
+            this.cmFolderDasm.Size = new System.Drawing.Size(143, 22);
             this.cmFolderDasm.Text = "Disassembler";
             this.cmFolderDasm.Click += new System.EventHandler(this.cmFolderDasm_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(135, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(140, 6);
             // 
             // cmFolderOpen
             // 
             this.cmFolderOpen.Image = global::SimpleAssemblyExplorer.Properties.Resources.openfolder;
             this.cmFolderOpen.ImageTransparentColor = System.Drawing.Color.Green;
             this.cmFolderOpen.Name = "cmFolderOpen";
-            this.cmFolderOpen.Size = new System.Drawing.Size(138, 22);
+            this.cmFolderOpen.Size = new System.Drawing.Size(143, 22);
             this.cmFolderOpen.Text = "Open Folder";
             this.cmFolderOpen.Click += new System.EventHandler(this.cmFolderOpen_Click);
             // 
@@ -635,20 +646,20 @@ namespace SimpleAssemblyExplorer
             this.cmFolderDelete.Image = global::SimpleAssemblyExplorer.Properties.Resources.delete;
             this.cmFolderDelete.ImageTransparentColor = System.Drawing.Color.Fuchsia;
             this.cmFolderDelete.Name = "cmFolderDelete";
-            this.cmFolderDelete.Size = new System.Drawing.Size(138, 22);
+            this.cmFolderDelete.Size = new System.Drawing.Size(143, 22);
             this.cmFolderDelete.Text = "Delete Folder";
             this.cmFolderDelete.Click += new System.EventHandler(this.cmFolderDelete_Click);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(135, 6);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(140, 6);
             // 
             // cmRefresh
             // 
             this.cmRefresh.Name = "cmRefresh";
             this.cmRefresh.ShortcutKeyDisplayString = "F5";
-            this.cmRefresh.Size = new System.Drawing.Size(138, 22);
+            this.cmRefresh.Size = new System.Drawing.Size(143, 22);
             this.cmRefresh.Text = "Refresh";
             this.cmRefresh.Click += new System.EventHandler(this.cmRefresh_Click);
             // 
@@ -669,7 +680,7 @@ namespace SimpleAssemblyExplorer
             // lblPath
             // 
             this.lblPath.Name = "lblPath";
-            this.lblPath.Size = new System.Drawing.Size(29, 22);
+            this.lblPath.Size = new System.Drawing.Size(31, 22);
             this.lblPath.Text = "Path";
             // 
             // txtPath
@@ -690,6 +701,13 @@ namespace SimpleAssemblyExplorer
             this.fileSystemWatcher1.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Changed);
             this.fileSystemWatcher1.Created += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Created);
             this.fileSystemWatcher1.Deleted += new System.IO.FileSystemEventHandler(this.fileSystemWatcher1_Deleted);
+            // 
+            // mnuSDK45
+            // 
+            this.mnuSDK45.Name = "mnuSDK45";
+            this.mnuSDK45.Size = new System.Drawing.Size(354, 22);
+            this.mnuSDK45.Text = "Windows SDK for Windows 8 and .Net Framework 4.5";
+            this.mnuSDK45.Click += new System.EventHandler(this.mnuSDK45_Click);
             // 
             // frmMain
             // 
@@ -766,6 +784,7 @@ namespace SimpleAssemblyExplorer
         private System.Windows.Forms.ToolStripMenuItem mnuHome;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem mnuSDK20;
+        private System.Windows.Forms.ToolStripMenuItem mnuDiscussion;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem mnuCheckForUpdate;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
@@ -789,6 +808,7 @@ namespace SimpleAssemblyExplorer
         private System.Windows.Forms.ToolStripMenuItem mnuPluginList;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem11;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        private System.Windows.Forms.ToolStripMenuItem mnuSourceCode;
         private System.Windows.Forms.ToolStripMenuItem mnuSDK4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgcFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgcAssemblyName;

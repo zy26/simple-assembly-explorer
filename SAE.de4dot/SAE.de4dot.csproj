@@ -136,8 +136,13 @@
       <Name>SimpleAssemblyExplorer.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimpleAssemblyExplorer.Plugin\SimpleAssemblyExplorer.Plugin.csproj">
-      <Project>{e6859af5-5eb4-409e-9dbb-5b96f407b3a4}</Project>
+      <Project>{E6859AF5-5EB4-409E-9DBB-5B96F407B3A4}</Project>
       <Name>SimpleAssemblyExplorer.Plugin</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleAssemblyExplorer\SimpleAssemblyExplorer.csproj">
+      <Project>{7c021fd2-b285-4bc2-8639-8f73aceabc99}</Project>
+      <Name>SimpleAssemblyExplorer</Name>
     </ProjectReference>
     <ProjectReference Include="..\SimpleUtils\SimpleUtils.csproj">
       <Project>{1BD77379-9B94-4774-9834-99B1F2B7CD4F}</Project>

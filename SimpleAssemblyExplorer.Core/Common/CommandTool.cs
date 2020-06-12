@@ -7,7 +7,6 @@ using System.Threading;
 using System.Diagnostics;
 using SimpleUtils;
 using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace SimpleAssemblyExplorer
 {
@@ -18,12 +17,9 @@ namespace SimpleAssemblyExplorer
         public CommandTool(OptionsBase options)
         {
             Options = options;
-            ShowWindow = false;
         }
 
         public abstract string ExeFile { get; }
-
-        public bool ShowWindow { get; set; }
 
         public virtual void SetTextInfo(string text)
         {
@@ -32,7 +28,6 @@ namespace SimpleAssemblyExplorer
 
         public virtual void AppendTextInfo(string text)
         {
-            text = Regex.Replace(text, "(?<!\r)\n", "\r\n");
             Options.AppendTextInfo(text);
         }
 
@@ -75,41 +70,36 @@ namespace SimpleAssemblyExplorer
         }
 
         public virtual void OnProcessStart(Process p)
-        {
+        {            
         }
 
         public virtual void OnProcessEnd(Process p)
         {
         }
 
-
         public virtual string GetSourceFile(string fileName)
         {
             return File.Exists(fileName) ? fileName : Path.Combine(Options.SourceDir, fileName);
         }
 
-        public virtual int Go(string sourceFile)
+        public virtual void Go(string sourceFile)
         {
             Process p = CreateProcess();
             p.StartInfo.Arguments = PrepareArguments(sourceFile);
-                     
+            
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.RedirectStandardOutput = true;
+
             ShowProcessTextInfo(p);            
             OnProcessStart(p);
             p.Start();
             WaitForProcess(p);
-            int r = p.ExitCode;
-            if (r != 0)
-            {
-               Options.AppendTextInfoLine(String.Format("{0} exited with {1}", Path.GetFileNameWithoutExtension(ExeFile), r));
-            }
-            
             OnProcessEnd(p);
-            return r;
         }
 
         public virtual void Go()
         {
-            var rows = Options.Rows;
+            string[] rows = Options.Rows;
             
             //no rows
             if (rows == null || rows.Length == 0 || Options.IgnoreRows)
@@ -145,19 +135,14 @@ namespace SimpleAssemblyExplorer
 
                     fileName = GetSourceFile(fileName);
 
-                    SetStatusText(String.Format("Processing {0} ...", fileName));
+                    SetStatusText(fileName);
 
                     if (Options.ShowFileNoTextInfo)
                     {
-                        AppendTextInfo(String.Format("\r\nFile: {0}\r\n", i + 1));
+                        AppendTextInfo(String.Format("File: {0}\r\n", i + 1));
                     }
 
                     Go(fileName);
-
-                    //if (Options.ShowFileNoTextInfo)
-                    //{
-                        //AppendTextInfo("\r\n\r\n");
-                    //}
 
                     if (showProgress)
                     {
@@ -171,114 +156,76 @@ namespace SimpleAssemblyExplorer
             }
             finally
             {
-                if (showProgress)
+                if (showProgress) 
                     ResetProgress();
                 ShowCompleteTextInfo();
             }
-        }
+        }        
 
         public virtual Process CreateProcess()
         {
             Process p = new Process();
             p.StartInfo.FileName = ExeFile;
-            p.StartInfo.WorkingDirectory = Options.SourceDir;
+            p.StartInfo.WorkingDirectory = Options.SourceDir;            
 
             p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
 
-            if (this.ShowWindow)
-            {
-                p.StartInfo.CreateNoWindow = false;
-                p.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-                p.StartInfo.RedirectStandardError = false;
-                p.StartInfo.RedirectStandardOutput = false;
-            }
-            else
-            {
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.WindowStyle = ProcessWindowStyle.Minimized;
-                p.StartInfo.RedirectStandardError = true;
-                p.StartInfo.RedirectStandardOutput = true;
-                
-                p.EnableRaisingEvents = true;
-                p.OutputDataReceived += OutputDataReceived;
-                p.ErrorDataReceived += ErrorDataReceived;
-            }
-            
+            //not working
+            //Encoding encoding = Encoding.GetEncoding(CultureInfo.CurrentCulture.TextInfo.OEMCodePage);
+            //p.StartInfo.StandardOutputEncoding = encoding;
+            //p.StartInfo.StandardErrorEncoding = encoding;
+
+            //p.StartInfo.StandardErrorEncoding = Encoding.UTF8;
+            //p.StartInfo.StandardOutputEncoding = Encoding.UTF8;
             return p;
-        }       
+        }
 
-        void ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        public virtual void ShowProcessOutput(Process p)
         {
-            if (e.Data != null)
+            if (p.StartInfo.RedirectStandardOutput)
             {
-                this.Options.AppendTextInfoLine(e.Data);
+                StreamReader sr = p.StandardOutput;
+                string output = sr.ReadToEnd();
+                if (!String.IsNullOrEmpty(output))
+                {
+                    AppendTextInfo(output);
+                    AppendTextInfo("\r\n");
+                }
+
+            }
+            if (p.StartInfo.RedirectStandardError)
+            {
+                StreamReader sr = p.StandardError;
+                string output = sr.ReadToEnd();
+                if (!String.IsNullOrEmpty(output))
+                {
+                    AppendTextInfo(output);
+                    AppendTextInfo("\r\n");
+                }
             }
         }
-        void OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data != null)
-            {
-                this.Options.AppendTextInfoLine(e.Data);
-            }
-        }
-		
-         public virtual void ShowProcessOutput(Process p)
-        {
-            //if (p.StartInfo.RedirectStandardOutput)
-            //{
-            //    StreamReader sr = p.StandardOutput;
-            //    string output = sr.ReadToEnd();
-			// if (!String.IsNullOrEmpty(output))
-			//	{
-            //    AppendTextInfo(output);
-            //    AppendTextInfo("\r\n");
-			//	}
-            //}
-
-            //if (p.StartInfo.RedirectStandardError)
-            //{
-            //    StreamReader sr = p.StandardError;
-            //    string output = sr.ReadToEnd();
-            //    if (!String.IsNullOrEmpty(output))
-            //    {
-            //        AppendTextInfo("\r\n");
-            //        AppendTextInfo(output);
-            //        AppendTextInfo("\r\n");
-            //    }
-            //}
-        }        
 
         public virtual void WaitForProcess(Process p)
         {
-            if (!this.ShowWindow)
+            for (int i = 0; i < 360; i++)
             {
-                p.BeginOutputReadLine();
-                p.BeginErrorReadLine();
-            }
-            for (int i = 0; i < 3600 * 100; i++ )
-            {
-                //p.WaitForExit(10);
-                Thread.Sleep(10);
-                Application.DoEvents();
-                //p.Refresh();
-                if (p.HasExited)
-                {
-                    break;
-                }
+                p.WaitForExit(10000);
+                ShowProcessOutput(p);
+                if (p.HasExited) break;
             }
 
             if (p.HasExited)
-            {                
-                Thread.Sleep(100);
-                Application.DoEvents();
+            {
+                ShowProcessOutput(p);
             }
             else
             {
                 p.Kill();
+                ShowProcessOutput(p);
                 AppendTextInfo("Process killed.");
             }
-
-            ShowProcessOutput(p);
             Application.DoEvents();
         }
 
@@ -294,12 +241,9 @@ namespace SimpleAssemblyExplorer
 
         public virtual void Help()
         {
-            var savedShowWindow = this.ShowWindow;
-            this.ShowWindow = false;
             Process p = CreateProcess();
-            this.ShowWindow = savedShowWindow;
-
-            p.StartInfo.Arguments = this.HelpArgument;            
+            p.StartInfo.Arguments = this.HelpArgument;
+            p.StartInfo.RedirectStandardOutput = true;
 
             SetTextInfo(String.Empty);
             ShowProcessTextInfo(p);

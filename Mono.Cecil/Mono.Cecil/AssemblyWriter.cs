@@ -82,7 +82,10 @@ namespace Mono.Cecil {
 		public static void WriteModuleTo (ModuleDefinition module, Stream stream, WriterParameters parameters)
 		{
 			if ((module.Attributes & ModuleAttributes.ILOnly) == 0)
-				throw new NotSupportedException ("Writing mixed-mode assemblies is not supported");
+                //wicky.patch.start: show more meaningful reason
+				//throw new ArgumentException ();
+                throw new ArgumentException("Mixed mode assembly isn't supported.");
+                //wicky.patch.end
 
 			if (module.HasImage && module.ReadingMode == ReadingMode.Deferred)
 				ImmediateModuleReader.ReadModule (module);

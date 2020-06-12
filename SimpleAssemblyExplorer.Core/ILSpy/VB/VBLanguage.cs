@@ -142,7 +142,6 @@ namespace ICSharpCode.ILSpy.VB
 			if (isSingleMember)
 				settings.UsingDeclarations = false;
 			settings.IntroduceIncrementAndDecrement = false;
-			settings.MakeAssignmentExpressions = false;
 			settings.QueryExpressions = false;
 			settings.AlwaysGenerateExceptionVariableForCatchBlocks = true;
 			return new AstBuilder(

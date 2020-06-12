@@ -19,7 +19,6 @@ using DgvFilterPopup;
 
 namespace SimpleAssemblyExplorer
 {
-
     public partial class frmMain : frmBase, IHost
     {
         public TreeView TreeView { get { return this.treeView1; } }
@@ -312,9 +311,26 @@ namespace SimpleAssemblyExplorer
             }
         }
 
+        public const string HomeUrl = "http://code.google.com/p/simple-assembly-explorer";
+        public const string SourceUrl = HomeUrl + "/source/browse/trunk";
+
+        public const string IssuesUrl = HomeUrl + "/issues/list";
+
         private void mnuHome_Click(object sender, EventArgs e)
         {
+            //SimpleDotNet.OpenWebSite();
             SimpleProcess.OpenWebSite(HomeUrl);
+        }
+
+        private void mnuSourceCode_Click(object sender, EventArgs e)
+        {
+            SimpleProcess.OpenWebSite(SourceUrl);
+        }
+
+        private void mnuDiscussion_Click(object sender, EventArgs e)
+        {
+            //SimpleDotNet.OpenDiscussionWebSite();
+            SimpleProcess.OpenWebSite(IssuesUrl);
         }
 
         private void mnuSDK20_Click(object sender, EventArgs e)
@@ -540,16 +556,7 @@ namespace SimpleAssemblyExplorer
 
             try
             {
-                frmClassEdit frm = new frmClassEdit(
-                    new ClassEditParams() {
-                        Host = this,
-                        Rows = PathUtils.GetFullFileNames(dgvData.SelectedRows, treeView1.SelectedNode.FullPath),
-                        SourceDir = treeView1.SelectedNode.FullPath,
-                        ObjectType = ObjectTypes.All,
-                        ShowStaticOnly = false,
-                        ShowSelectButton = false
-                    }
-                    );
+                frmClassEdit frm = new frmClassEdit(this, PathUtils.GetFullFileNames(dgvData.SelectedRows, treeView1.SelectedNode.FullPath), treeView1.SelectedNode.FullPath);
                 frm.Show();
             }
             catch (Exception ex)
@@ -1016,13 +1023,11 @@ namespace SimpleAssemblyExplorer
 
         #region Utils
 
-        public string HomeUrl = SimpleDotNet.WebSiteUrl + "/simple-assembly-explorer";
-
         public void CheckForUpdate(bool silent)
         {
             SimpleUpdater.CheckForUpdate(
-                HomeUrl + "/version",
-                HomeUrl,
+                SimpleDotNet.GoogleSitesUrl + "/site/simpledotnet/simple-assembly-explorer/version",
+                SimpleDotNet.GoogleSitesUrl + "/site/simpledotnet/simple-assembly-explorer",
                 silent);
         }
 
@@ -1040,7 +1045,8 @@ namespace SimpleAssemblyExplorer
 
         public void EmailAuthor()
         {
-            SimpleDotNet.SendEmail("SAE Issue/Suggestion", "Any issue or suggestion?");
+            SimpleDotNet.SendEmail("SAE Issue/Suggestion", 
+                String.Format("Any issue or suggestion you can post to {0}.", IssuesUrl));
         }
         #endregion 
 

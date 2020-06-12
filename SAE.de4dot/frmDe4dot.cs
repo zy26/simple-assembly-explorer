@@ -171,20 +171,13 @@ namespace SAE.de4dot
             bool showStaticOnly = (type == de4dotOptions.StringDecrypterTypes.Default ||
                 type == de4dotOptions.StringDecrypterTypes.Static);
 
-            var p = new ClassEditParams()
-            {
-                Host = _host,
-                Rows = _rows,
-                SourceDir = _sourceDir,
-                ObjectType = ObjectTypes.Method,
-                ShowStaticOnly = showStaticOnly,
-                ShowSelectButton = true
-            };
+            frmClassEdit f = new frmClassEdit(_host, _rows, _sourceDir,
+                   ClassEditTreeViewHandler.ObjectTypes.Method, showStaticOnly, true);
+            f.ShowDialog();
 
-            var selectedMethod = ClassEditUtils.Run(p);
-            if (selectedMethod != null)
+            if (f.SelectedMethod != null)
             {
-                txtStringDecrypterMethod.Text = TokenUtils.GetFullMetadataTokenString(selectedMethod.MetadataToken);
+                txtStringDecrypterMethod.Text = TokenUtils.GetFullMetadataTokenString(f.SelectedMethod.MetadataToken);
             }
             else
             {

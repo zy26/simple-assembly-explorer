@@ -20,8 +20,6 @@ namespace ICSharpCode.NRefactory.VB.Visitors
 		bool? IsReferenceType(CSharp.Expression expression);
 		//ITypeResolveContext ResolveContext { get; }
 		IType ResolveType(AstType type, TypeDeclaration entity = null);
-		bool IsMethodGroup(CSharp.Expression expression);
-		bool HasEvent(Expression expression);
 	}
 	
 	/// <summary>
@@ -98,8 +96,7 @@ namespace ICSharpCode.NRefactory.VB.Visitors
 				Type = (AstType)arrayCreateExpression.Type.AcceptVisitor(this, data),
 				Initializer = (ArrayInitializerExpression)arrayCreateExpression.Initializer.AcceptVisitor(this, data)
 			};
-			ConvertNodes(arrayCreateExpression.Arguments, expr.Arguments,
-			             n => new BinaryOperatorExpression(n, BinaryOperatorType.Subtract, new PrimitiveExpression(1)));
+			ConvertNodes(arrayCreateExpression.Arguments, expr.Arguments);
 			ConvertNodes(arrayCreateExpression.AdditionalArraySpecifiers, expr.AdditionalArraySpecifiers);
 			
 			return EndNode(arrayCreateExpression, expr);
@@ -129,21 +126,9 @@ namespace ICSharpCode.NRefactory.VB.Visitors
 					op = AssignmentOperatorType.Assign;
 					break;
 				case ICSharpCode.NRefactory.CSharp.AssignmentOperatorType.Add:
-					if (provider.HasEvent(left)) {
-						var addHandler = new AddRemoveHandlerStatement { IsAddHandler = true };
-						addHandler.EventExpression = left;
-						addHandler.DelegateExpression = right;
-						return EndNode(assignmentExpression, addHandler);
-					}
 					op = AssignmentOperatorType.Add;
 					break;
 				case ICSharpCode.NRefactory.CSharp.AssignmentOperatorType.Subtract:
-					if (provider.HasEvent(left)) {
-						var addHandler = new AddRemoveHandlerStatement { IsAddHandler = false };
-						addHandler.EventExpression = left;
-						addHandler.DelegateExpression = right;
-						return EndNode(assignmentExpression, addHandler);
-					}
 					op = AssignmentOperatorType.Subtract;
 					break;
 				case ICSharpCode.NRefactory.CSharp.AssignmentOperatorType.Multiply:
@@ -374,9 +359,6 @@ namespace ICSharpCode.NRefactory.VB.Visitors
 			var expr = new IdentifierExpression();
 			expr.Identifier = new Identifier(identifierExpression.Identifier, TextLocation.Empty);
 			ConvertNodes(identifierExpression.TypeArguments, expr.TypeArguments);
-			if (provider.IsMethodGroup(identifierExpression)) {
-				return EndNode(identifierExpression, new UnaryOperatorExpression(UnaryOperatorType.AddressOf, expr));
-			}
 			
 			return EndNode(identifierExpression, expr);
 		}
@@ -390,8 +372,10 @@ namespace ICSharpCode.NRefactory.VB.Visitors
 		
 		public AstNode VisitInvocationExpression(CSharp.InvocationExpression invocationExpression, object data)
 		{
-			var expr = new InvocationExpression((Expression)invocationExpression.Target.AcceptVisitor(this, data));
+			var expr = new InvocationExpression(
+				(Expression)invocationExpression.Target.AcceptVisitor(this, data));
 			ConvertNodes(invocationExpression.Arguments, expr.Arguments);
+			
 			return EndNode(invocationExpression, expr);
 		}
 		
@@ -428,9 +412,6 @@ namespace ICSharpCode.NRefactory.VB.Visitors
 			memberAccessExpression.Target = (Expression)memberReferenceExpression.Target.AcceptVisitor(this, data);
 			memberAccessExpression.MemberName = new Identifier(memberReferenceExpression.MemberName, TextLocation.Empty);
 			ConvertNodes(memberReferenceExpression.TypeArguments, memberAccessExpression.TypeArguments);
-			if (provider.IsMethodGroup(memberReferenceExpression)) {
-				return EndNode(memberReferenceExpression, new UnaryOperatorExpression(UnaryOperatorType.AddressOf, memberAccessExpression));
-			}
 			
 			return EndNode(memberReferenceExpression, memberAccessExpression);
 		}
@@ -464,11 +445,6 @@ namespace ICSharpCode.NRefactory.VB.Visitors
 		{
 			var expr = new ObjectCreationExpression((AstType)objectCreateExpression.Type.AcceptVisitor(this, data));
 			ConvertNodes(objectCreateExpression.Arguments, expr.Arguments);
-			var arg1 = expr.Arguments.FirstOrDefault() as UnaryOperatorExpression;
-			if (arg1 != null && arg1.Operator == UnaryOperatorType.AddressOf) {
-				arg1.Remove();
-				return EndNode(objectCreateExpression, arg1);
-			}
 			if (!objectCreateExpression.Initializer.IsNull)
 				expr.Initializer = (ArrayInitializerExpression)objectCreateExpression.Initializer.AcceptVisitor(this, data);
 			
@@ -1060,10 +1036,8 @@ namespace ICSharpCode.NRefactory.VB.Visitors
 		
 		public AstNode VisitExpressionStatement(CSharp.ExpressionStatement expressionStatement, object data)
 		{
-			var node = expressionStatement.Expression.AcceptVisitor(this, data);
-			if (node is Expression)
-				node = new ExpressionStatement((Expression)node);
-			return EndNode(expressionStatement, node);
+			var expr = new ExpressionStatement((Expression)expressionStatement.Expression.AcceptVisitor(this, data));
+			return EndNode(expressionStatement, expr);
 		}
 		
 		public AstNode VisitFixedStatement(CSharp.FixedStatement fixedStatement, object data)
@@ -2214,12 +2188,10 @@ namespace ICSharpCode.NRefactory.VB.Visitors
 			throw new NotImplementedException();
 		}
 		
-		void ConvertNodes<T>(IEnumerable<CSharp.AstNode> nodes, VB.AstNodeCollection<T> result, Func<T, T> transform = null) where T: VB.AstNode
+		void ConvertNodes<T>(IEnumerable<CSharp.AstNode> nodes, VB.AstNodeCollection<T> result) where T : VB.AstNode
 		{
 			foreach (var node in nodes) {
 				T n = (T)node.AcceptVisitor(this, null);
-				if (transform != null)
-					n = transform(n);
 				if (n != null)
 					result.Add(n);
 			}

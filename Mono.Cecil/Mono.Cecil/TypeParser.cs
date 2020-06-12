@@ -267,7 +267,7 @@ namespace Mono.Cecil {
 		public static TypeReference ParseType (ModuleDefinition module, string fullname)
 		{
             //wicky.patch.start: ignore empty type name
-			//if (string.IsNullOrEmpty (fullname))
+			//if (fullname == null)
             if (String.IsNullOrWhiteSpace(fullname))
 				return null;
             //wicky.patch.end

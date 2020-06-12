@@ -573,15 +573,8 @@ namespace SimpleAssemblyExplorer
         private void btnSelectMethod_Click(object sender, EventArgs e)
         {
             if (_frmClassView == null)
-                _frmClassView = new frmClassEdit(
-                    new ClassEditParams() {
-                        Host = _mainForm.Host,
-                        Rows = _mainForm.Rows,
-                        SourceDir = _mainForm.SourceDir,
-                        ObjectType = ObjectTypes.Method,
-                        ShowStaticOnly = false,
-                        ShowSelectButton = true
-                    });
+                _frmClassView = new frmClassEdit(_mainForm.Host, _mainForm.Rows, _mainForm.SourceDir, 
+                    ClassEditTreeViewHandler.ObjectTypes.Method, false, true);
             _frmClassView.ShowDialog();
 
             if (_frmClassView.SelectedMethod != null)

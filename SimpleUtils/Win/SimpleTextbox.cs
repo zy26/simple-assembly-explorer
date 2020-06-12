@@ -33,20 +33,12 @@ namespace SimpleUtils.Win
             tb.ScrollToCaret();
         }
 
-        public delegate void AppendTextDelegate(TextBoxBase tb, string text);
         public static void AppendText(TextBoxBase tb, string text)
         {
             if (tb == null) return;
             tb.SuspendLayout();
-            if (tb.InvokeRequired)
-            {
-                tb.Invoke(new AppendTextDelegate(AppendText), new object[] { tb, text });
-            }
-            else
-            {
-                tb.SelectionStart = tb.TextLength;
-                tb.SelectedText = text;
-            }
+            tb.SelectionStart = tb.TextLength;
+            tb.SelectedText = text;
             tb.ResumeLayout();
         }
         #endregion TextBox

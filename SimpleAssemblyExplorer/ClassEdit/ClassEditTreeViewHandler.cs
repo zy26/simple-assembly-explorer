@@ -2338,15 +2338,8 @@ namespace SimpleAssemblyExplorer
 
         private MethodDefinition SelectMethodFromAssembly()
         {
-            frmClassEdit f = new frmClassEdit(
-                new ClassEditParams() {
-                    Host = _form.Host,
-                    Rows = new string[0],
-                    SourceDir = _form.SourceDir,
-                    ObjectType = ObjectTypes.Method,
-                    ShowStaticOnly = false,
-                    ShowSelectButton = true
-                });
+            frmClassEdit f = new frmClassEdit(_form.Host, new string[0], _form.SourceDir,
+                    ClassEditTreeViewHandler.ObjectTypes.Method, false, true);
             f.ShowDialog();
             return f.SelectedMethod;
         }
@@ -2381,7 +2374,20 @@ namespace SimpleAssemblyExplorer
             treeView1.SelectedNode = n;
         }
 
-        #endregion Read Method From File        
+        #endregion Read Method From File
+
+        [Flags]
+        public enum ObjectTypes
+        {
+            None,
+            Constructor,
+            Event,
+            Field,
+            Interface,
+            Method,
+            Property,
+            Type
+        }
 
     } // end of class
 }

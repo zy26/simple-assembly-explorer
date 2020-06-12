@@ -143,7 +143,6 @@ namespace Mono.Security.Cryptography {
 				// this may cause problem when this code is run under
 				// the SYSTEM identity on Windows (e.g. ASP.NET). See
 				// http://bugzilla.ximian.com/show_bug.cgi?id=77559
-				bool throws = false;
 				try {
 					CspParameters csp = new CspParameters ();
 					csp.Flags = CspProviderFlags.UseMachineKeyStore;
@@ -151,12 +150,8 @@ namespace Mono.Security.Cryptography {
 					rsa.ImportParameters (rsap);
 				}
 				catch {
-					throws = true;
-				}
-
-				if (throws) {
-					// rethrow original, not the latter, exception if this fails
-					throw;
+					// rethrow original, not the later, exception if this fails
+					throw ce;
 				}
 			}
 			return rsa;

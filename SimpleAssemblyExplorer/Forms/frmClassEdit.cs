@@ -78,17 +78,17 @@ namespace SimpleAssemblyExplorer
         //used in frmClassEditInstruction only
         public List<MethodReference> SelectedMethodHistory = new List<MethodReference>();
 
-        private void InitForm(ClassEditParams p)
+        private void InitForm(IHost host, string[] rows, string sourceDir, bool showStaticOnly, bool showSelectButton)
         {
             try
             {
                 //this.SuspendLayout();
 
-                Host = p.Host;
-                Rows = p.Rows;
-                SourceDir = SimplePath.GetFullPath(p.SourceDir);
-                ShowStaticOnly = p.ShowStaticOnly;
-                ShowSelectButton = p.ShowSelectButton;
+                Host = host;
+                Rows = rows;
+                SourceDir = SimplePath.GetFullPath(sourceDir);
+                ShowStaticOnly = showStaticOnly;
+                ShowSelectButton = showSelectButton;
 
                 tbSelect.Visible = ShowSelectButton;
                 tbSave.Visible = !ShowSelectButton;
@@ -121,8 +121,6 @@ namespace SimpleAssemblyExplorer
                 TreeViewHandler = new ClassEditTreeViewHandler(this);
                 BinaryViewHandler = new ClassEditBinaryViewHandler(this);
                 TextViewHandler = new ClassEditTextViewHandler(this);
-
-                TreeViewHandler.ObjectType = p.ObjectType;
             }
             catch
             {
@@ -134,11 +132,24 @@ namespace SimpleAssemblyExplorer
             }
         }
 
-        public frmClassEdit(ClassEditParams p)
+        public frmClassEdit(IHost host, string[] rows, string sourceDir)
         {
             InitializeComponent();
 
-            InitForm(p);            
+            InitForm(host, rows, sourceDir, false, false);
+
+        }
+
+        public frmClassEdit(IHost host, string[] rows, string sourceDir,
+            ClassEditTreeViewHandler.ObjectTypes objectType, 
+            bool showStaticOnly,
+            bool showSelectButton)
+        {
+            InitializeComponent();
+
+            InitForm(host, rows, sourceDir, showStaticOnly, showSelectButton);
+            
+            TreeViewHandler.ObjectType = objectType;
 
         }
 

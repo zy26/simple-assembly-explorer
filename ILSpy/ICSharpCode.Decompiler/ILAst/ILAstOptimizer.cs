@@ -170,15 +170,11 @@ namespace ICSharpCode.Decompiler.ILAst
 					modified |= block.RunOptimization(TransformObjectInitializers);
 					
 					if (abortBeforeStep == ILAstOptimizationStep.MakeAssignmentExpression) return;
-					if (context.Settings.MakeAssignmentExpressions) {
-						modified |= block.RunOptimization(MakeAssignmentExpression);
-					}
+					modified |= block.RunOptimization(MakeAssignmentExpression);
 					modified |= block.RunOptimization(MakeCompoundAssignments);
 					
 					if (abortBeforeStep == ILAstOptimizationStep.IntroducePostIncrement) return;
-					if (context.Settings.IntroduceIncrementAndDecrement) {
-						modified |= block.RunOptimization(IntroducePostIncrement);
-					}
+					modified |= block.RunOptimization(IntroducePostIncrement);
 					
 					if (abortBeforeStep == ILAstOptimizationStep.InlineExpressionTreeParameterDeclarations) return;
 					if (context.Settings.ExpressionTrees) {
@@ -229,13 +225,11 @@ namespace ICSharpCode.Decompiler.ILAst
 			new ILInlining(method).InlineAllVariables();
 			
 			if (abortBeforeStep == ILAstOptimizationStep.CachedDelegateInitialization) return;
-			if (context.Settings.AnonymousMethods) {
-				foreach(ILBlock block in method.GetSelfAndChildrenRecursive<ILBlock>()) {
-					for (int i = 0; i < block.Body.Count; i++) {
-						// TODO: Move before loops
-						CachedDelegateInitializationWithField(block, ref i);
-						CachedDelegateInitializationWithLocal(block, ref i);
-					}
+			foreach(ILBlock block in method.GetSelfAndChildrenRecursive<ILBlock>()) {
+				for (int i = 0; i < block.Body.Count; i++) {
+					// TODO: Move before loops
+					CachedDelegateInitializationWithField(block, ref i);
+					CachedDelegateInitializationWithLocal(block, ref i);
 				}
 			}
 			

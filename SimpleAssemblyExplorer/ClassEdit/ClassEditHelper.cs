@@ -4,7 +4,6 @@ using System.Text;
 using SimpleUtils;
 using System.Windows.Forms;
 using Mono.Cecil;
-using SimpleAssemblyExplorer.Plugin;
 
 namespace SimpleAssemblyExplorer
 {

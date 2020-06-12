@@ -40,7 +40,7 @@ namespace Mono.Cecil.Mdb {
 
 		public ISymbolReader GetSymbolReader (ModuleDefinition module, string fileName)
 		{
-			return new MdbReader (module, MonoSymbolFile.ReadSymbolFile (module, fileName));
+			return new MdbReader (MonoSymbolFile.ReadSymbolFile (module, fileName));
 		}
 
 		public ISymbolReader GetSymbolReader (ModuleDefinition module, Stream symbolStream)
@@ -51,20 +51,18 @@ namespace Mono.Cecil.Mdb {
 
 	public class MdbReader : ISymbolReader {
 
-		readonly ModuleDefinition module;
 		readonly MonoSymbolFile symbol_file;
 		readonly Dictionary<string, Document> documents;
 
-		public MdbReader (ModuleDefinition module, MonoSymbolFile symFile)
+		public MdbReader (MonoSymbolFile symFile)
 		{
-			this.module = module;
-			this.symbol_file = symFile;
-			this.documents = new Dictionary<string, Document> ();
+			symbol_file = symFile;
+			documents = new Dictionary<string, Document> ();
 		}
 
 		public bool ProcessDebugHeader (ImageDebugDirectory directory, byte [] header)
 		{
-			return symbol_file.Guid == module.Mvid;
+			return true;
 		}
 
 		public void Read (MethodBody body, InstructionMapper mapper)
@@ -82,11 +80,7 @@ namespace Mono.Cecil.Mdb {
 		static void ReadLocalVariables (MethodEntry entry, MethodBody body, Scope [] scopes)
 		{
 			var locals = entry.GetLocals ();
-
 			foreach (var local in locals) {
-				if (local.Index < 0 || local.Index >= body.Variables.Count) // Mono 2.6 emits wrong local infos for iterators
-					continue;
-				
 				var variable = body.Variables [local.Index];
 				variable.Name = local.Name;
 
@@ -206,9 +200,6 @@ namespace Mono.Cecil.Mdb {
 		static void ReadLocalVariables (MethodEntry entry, MethodSymbols symbols)
 		{
 			foreach (var local in entry.GetLocals ()) {
-				if (local.Index < 0 || local.Index >= symbols.Variables.Count) // Mono 2.6 emits wrong local infos for iterators
-					continue;
-
 				var variable = symbols.Variables [local.Index];
 				variable.Name = local.Name;
 			}

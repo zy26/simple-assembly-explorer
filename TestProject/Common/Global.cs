@@ -31,10 +31,6 @@ namespace TestProject
         {
             EntryAssembly = Assembly.GetExecutingAssembly();
             int p = EntryAssembly.Location.IndexOf("TestResults");
-            if (p < 0)
-            {
-                p = EntryAssembly.Location.IndexOf("TestProject\\bin");
-            }
             string rootPath = EntryAssembly.Location.Substring(0, p);
 
             if (Directory.Exists(rootPath))

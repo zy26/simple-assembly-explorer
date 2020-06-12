@@ -174,12 +174,7 @@ namespace ICSharpCode.Decompiler.Ast
 		
 		public void AddAssembly(AssemblyDefinition assemblyDefinition, bool onlyAssemblyLevel = false)
 		{
-			AddAssembly(assemblyDefinition.MainModule, onlyAssemblyLevel);
-		}
-		
-		public void AddAssembly(ModuleDefinition moduleDefinition, bool onlyAssemblyLevel = false)
-		{
-			if (moduleDefinition.Assembly != null && moduleDefinition.Assembly.Name.Version != null) {
+			if (assemblyDefinition.Name.Version != null) {
 				syntaxTree.AddChild(
 					new AttributeSection {
 						AttributeTarget = "assembly",
@@ -188,24 +183,22 @@ namespace ICSharpCode.Decompiler.Ast
 								Type = new SimpleType("AssemblyVersion")
 									.WithAnnotation(new TypeReference(
 										"System.Reflection", "AssemblyVersionAttribute",
-										moduleDefinition, moduleDefinition.TypeSystem.Corlib)),
+										assemblyDefinition.MainModule, assemblyDefinition.MainModule.TypeSystem.Corlib)),
 								Arguments = {
-									new PrimitiveExpression(moduleDefinition.Assembly.Name.Version.ToString())
+									new PrimitiveExpression(assemblyDefinition.Name.Version.ToString())
 								}
 							}
 						}
 					}, EntityDeclaration.AttributeRole);
 			}
 			
-			if (moduleDefinition.Assembly != null) {
-				ConvertCustomAttributes(syntaxTree, moduleDefinition.Assembly, "assembly");
-				ConvertSecurityAttributes(syntaxTree, moduleDefinition.Assembly, "assembly");
-			}
-			ConvertCustomAttributes(syntaxTree, moduleDefinition, "module");
-			AddTypeForwarderAttributes(syntaxTree, moduleDefinition, "assembly");
+			ConvertCustomAttributes(syntaxTree, assemblyDefinition, "assembly");
+			ConvertSecurityAttributes(syntaxTree, assemblyDefinition, "assembly");
+			ConvertCustomAttributes(syntaxTree, assemblyDefinition.MainModule, "module");
+			AddTypeForwarderAttributes(syntaxTree, assemblyDefinition.MainModule, "assembly");
 			
 			if (!onlyAssemblyLevel) {
-				foreach (TypeDefinition typeDef in moduleDefinition.Types) {
+				foreach (TypeDefinition typeDef in assemblyDefinition.MainModule.Types) {
 					// Skip the <Module> class
 					if (typeDef.Name == "<Module>") continue;
 					// Skip any hidden types

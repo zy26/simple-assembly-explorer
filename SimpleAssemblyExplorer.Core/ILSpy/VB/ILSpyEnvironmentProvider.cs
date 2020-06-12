@@ -88,7 +88,7 @@ namespace ICSharpCode.ILSpy.VB
 		{
 			var annotation = expression.Annotations.OfType<TypeInformation>().FirstOrDefault();
 			
-			if (annotation == null || annotation.InferredType == null)
+			if (annotation == null)
 				return TypeCode.Object;
 			
 			var definition = annotation.InferredType.Resolve();
@@ -113,7 +113,7 @@ namespace ICSharpCode.ILSpy.VB
 			
 			var annotation = expression.Annotations.OfType<TypeInformation>().FirstOrDefault();
 			
-			if (annotation == null || annotation.InferredType == null)
+			if (annotation == null)
 				return null;
 			
 			var definition = annotation.InferredType.Resolve();
@@ -139,19 +139,5 @@ namespace ICSharpCode.ILSpy.VB
 			}
 		}
 		
-		public bool HasEvent(NRefactory.VB.Ast.Expression expression)
-		{
-			return expression.Annotation<EventDefinition>() != null;
-		}
-		
-		public bool IsMethodGroup(ICSharpCode.NRefactory.CSharp.Expression expression)
-		{
-			var annotation = expression.Annotation<MethodDefinition>();
-			if (annotation != null) {
-				return true;
-			}
-			
-			return false;
-		}
 	}
 }
