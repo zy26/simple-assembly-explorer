@@ -54,7 +54,7 @@
 #include "cordebug.h"
 #include "SpecStrings.h"
 
-#include <hash_map>
+#include <unordered_map>
 #include <locale>
 using namespace std;
 

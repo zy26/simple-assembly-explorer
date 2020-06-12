@@ -50,10 +50,10 @@ class ProfilerCallback :
         ~ProfilerCallback();
 
 		//tables
-		stdext::hash_map<FunctionID, FunctionInfo*> m_pFunctionTable;
-		stdext::hash_map<ClassID, ClassInfo*> m_pClassTable;
-		stdext::hash_map<long, ClassInfo*> m_pClassNameTable;
-		stdext::hash_map<ModuleID, ModuleInfo*> m_pModuleTable;
+		std::unordered_map<FunctionID, FunctionInfo*> m_pFunctionTable;
+		std::unordered_map<ClassID, ClassInfo*> m_pClassTable;
+		std::unordered_map<long, ClassInfo*> m_pClassNameTable;
+		std::unordered_map<ModuleID, ModuleInfo*> m_pModuleTable;
 
 	protected:
 		HRESULT _GetFunctionInfo(FunctionInfo **ppFunctionInfo );
